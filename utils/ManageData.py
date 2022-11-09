@@ -10,12 +10,11 @@ DB_PW = os.environ.get('DB_PW')
 conn = pymysql.connect(host='127.0.0.1', user=DB_USER, password=DB_PW, db='PURUN', charset='utf8')
 sql = conn.cursor()
 
-def SelectAllData():
-    sql.execute("SELECT * FROM PURUN_TB")
-    return sql.fetchall()
-
-def SelectSpecialData(id):
-    sql.execute(f"SELECT * FROM PURUN_TB WHERE id={id}")
+def SelectData(query):
+    if query == "":
+        sql.execute(f"SELECT * FROM PURUN_TB")
+    else:
+        sql.execute(f"SELECT * FROM PURUN_TB WHERE {query}")
     return sql.fetchall()
 
 def InsertData(data):
