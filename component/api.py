@@ -45,4 +45,5 @@ def update_item(item: Item):
     #     "PH": round(item.PH, 2) if item.PH else None,
     # }
     print(item)
+    return item
     # InsertData(item)
