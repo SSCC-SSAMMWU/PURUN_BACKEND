@@ -1,6 +1,21 @@
 # import pymysql
 # from dotenv import load_dotenv
 # import os
+import sqlite3
+
+conn = sqlite3.connect("SSCC.db", check_same_thread=False)
+
+cur = conn.cursor()
+
+# STAMP, TEMP, PH, WATER_LEV, LIGHT_LEV, LAST_FEED, PLANT_HEIGHT, PLANT_WIDTH)
+conn.execute(
+    'CREATE TABLE IF NOT EXISTS AQUA_PONICS_TB (ID INTEGER PRIMARY KEY AUTOINCREMENT, TIMESTAMP TEXT, TEMP FLOAT, PH FLOAT, WATER_LEVEL INT, LED INT, FEED INT)')
+
+
+
+
+# conn.commit()
+# conn.close()
 
 # load_dotenv()
 #
@@ -23,6 +38,15 @@
 
 
 def SelectData(query):
-    return f"get {query}"
+    # return f"get {query}"
+    cur.execute(f"SELECT * FROM AQUA_PONICS_TB")
+    return len(cur.fetchall())
+
 def InsertData(data):
+    cur.execute(
+        'INSERT INTO AQUA_PONICS_TB (TIMESTAMP, TEMP, PH, WATER_LEVEL, LED, FEED) VALUES (?, ?, ?, ?, ?, ?)',
+        ('now', 0.0, 1.0, 128, 0, 1)
+    )
+    conn.commit()
+
     return f"insert {data}"
