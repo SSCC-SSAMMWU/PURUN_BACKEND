@@ -11,7 +11,7 @@ router = APIRouter(prefix="/api", tags=["api"])
 
 @router.get("/data")
 async def GetterDate(count: int = -1):
-    return SelectData(query="SELECT * FROM AQUA_PONICS_TB") if count == -1 else \
+    return SelectData(query="SELECT * FROM AQUA_PONICS_TB", option=f"ORDER BY ID DESC") if count == -1 else \
         SelectData(query="SELECT * FROM AQUA_PONICS_TB", option=f"ORDER BY ID DESC LIMIT {count}")
 
 
